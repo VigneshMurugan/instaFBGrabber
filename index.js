@@ -6,7 +6,6 @@ const url = "https://api.telegram.org/bot";
 const snapsave  = require("snapsave-downloader2")
 require('dotenv').config();
 
-
 const port = 80;
 
 app.use(bodyParser.json());
@@ -15,7 +14,7 @@ app.post("/", async (req, res) => {
   const chatId = req.body.message.chat.id;
   const sentMessage = req.body.message.text;
 
-  if(!isValidUrl(sentMessage) || sentMessage.startsWith('/')) {
+  if(!isValidUrl(sentMessage) || sentMessage.startsWith('/') || sentMessage.includes("you")) {
     axios
     .post(`${url}${process.env.API_TOKEN}/sendMessage`, { chat_id: chatId, text: "URL isn't valid" })
     .then(() => {
